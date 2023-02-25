@@ -18,8 +18,9 @@ public class ClientEvents {
         }
         @SubscribeEvent
         public static void init(FMLClientSetupEvent event) {
-            MinecraftForge.EVENT_BUS.addListener(KeyHandler::onClientTick);
+             MinecraftForge.EVENT_BUS.addListener(tossHandler::Tossed);
         }
+
         //        Minecraft.getInstance().player.sendSystemMessage(Component.literal("WORKS!"));
     }
 }
