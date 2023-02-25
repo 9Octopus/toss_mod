@@ -1,13 +1,10 @@
 package net.nineocto.tossmod.util.network.packet;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.function.Supplier;
-
-public class TossC2SPacket {
+/*public class TossC2SPacket {
     public TossC2SPacket() {
 
     }
@@ -30,3 +27,30 @@ public class TossC2SPacket {
         return true;
     }
 }
+
+ */
+
+public class TossC2SPacket {
+    private final ItemStack thrownStack;
+
+    public TossC2SPacket(ItemStack thrownStack) {
+        this.thrownStack = thrownStack;
+    }
+
+    public void toBytes(FriendlyByteBuf buffer) {
+        buffer.writeItem(thrownStack);
+    }
+
+    public static TossC2SPacket fromBytes(FriendlyByteBuf buffer) {
+        ItemStack thrownStack = buffer.readItem();
+        return new TossC2SPacket(thrownStack);
+    }
+
+    public void handle(NetworkEvent.Context context) {
+        context.getSender().getServer().execute(() -> {
+            // Perform server-side handling of the packet here
+        });
+    }
+}
+
+
