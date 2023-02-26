@@ -48,7 +48,6 @@ public class tossHandler {
 
  */
     public static void execute(Player player) {
-        Inventory inventory = player.getInventory();
         ItemStack stackInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stackInHand.isEmpty()) {
             return;
@@ -68,8 +67,6 @@ public class tossHandler {
         double z = Math.cos(Math.toRadians(player.getYRot())) * Math.cos(Math.toRadians(player.getXRot()));
         thrownItem.setDeltaMovement(x * throwDistance, y * throwHeight, z * throwDistance);
         player.level.addFreshEntity(thrownItem);
-
-        stackInHand.shrink(1);
     }
 
     public static void Tossed(ClientTickEvent event) {
@@ -78,8 +75,10 @@ public class tossHandler {
         }
 
         while (tossKeyMapping.consumeClick()) {
-            Minecraft.getInstance().player.playSound(SoundEvents.ITEM_PICKUP, 1.0f, 1.0f);
-            tossmodPacketHandler.sendToServer(new TossC2SPacket());
+            Minecraft.getInstance().player.playSound(SoundEvents.INK_SAC_USE, 1.0f, 1.0f);
+            ItemStack stackInHand = Minecraft.getInstance().player.getItemInHand(InteractionHand.MAIN_HAND);
+            tossmodPacketHandler.sendToServer(new TossC2SPacket(stackInHand));
+            stackInHand.shrink(1);
             System.out.println("WorkingWTF?");
         }
     }

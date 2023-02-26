@@ -1,13 +1,17 @@
 package net.nineocto.tossmod.util.network;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.nineocto.tossmod.TossMod;
 import net.nineocto.tossmod.util.network.packet.TossC2SPacket;
+
+import java.util.function.Supplier;
 
 public class tossmodPacketHandler {
     private static SimpleChannel INSTANCE;
@@ -24,7 +28,7 @@ public class tossmodPacketHandler {
                 .simpleChannel();
         INSTANCE = net;
         net.messageBuilder(TossC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(TossC2SPacket::new)
+                .decoder(buf -> new TossC2SPacket(buf.readItem()))
                 .encoder(TossC2SPacket::toBytes)
                 .consumerMainThread(TossC2SPacket::handle)
                 .add();
