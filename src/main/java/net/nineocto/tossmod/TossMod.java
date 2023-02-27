@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.nineocto.tossmod.util.network.tossmodPacketHandler;
 import org.slf4j.Logger;
 
 // Testing GitHub branch
@@ -23,11 +24,14 @@ public class TossMod {
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+    tossmodPacketHandler.register();
     }
+
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -37,4 +41,5 @@ public class TossMod {
 
         }
     }
+
 }
