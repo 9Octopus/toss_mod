@@ -9,7 +9,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import static net.minecraftforge.client.settings.KeyConflictContext.IN_GAME;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_TAB;
 
-//This simply registers our keybind, It is triggered in Client Events.
+//This simply registers our key bind, It is triggered in Client Events.
 public class KeyBindings {
     public static final String KEY_TOSS = "Drop Toss Held Item";
    public static KeyMapping tossKeyMapping;
