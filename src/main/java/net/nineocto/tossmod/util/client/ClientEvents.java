@@ -6,11 +6,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.nineocto.tossmod.TossMod;
 
-
-public class ClientEvents {
-    @Mod.EventBusSubscriber(modid = TossMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+//This tells the server to listen
+public class ClientEvents  {
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
         public static void onKeyBindRegister(RegisterKeyMappingsEvent event) {
@@ -20,7 +19,5 @@ public class ClientEvents {
         public static void init(FMLClientSetupEvent event) {
              MinecraftForge.EVENT_BUS.addListener(tossHandler::Tossed);
         }
-
-        //        Minecraft.getInstance().player.sendSystemMessage(Component.literal("WORKS!"));
     }
 }
